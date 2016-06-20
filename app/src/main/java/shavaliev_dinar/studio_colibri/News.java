@@ -19,17 +19,17 @@ public class News extends AppCompatActivity
             return true;
         }
     }
-
+    private WebView mWebView;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.news);
 
-        WebView webView = (WebView)findViewById(R.id.webView);
-        webView.getSettings().setJavaScriptEnabled(true);
-        webView.loadUrl("https://colibristudio16mb.wordpress.com/");
-        webView.setWebViewClient(new MyWebViewClient());
+        mWebView = (WebView) findViewById(R.id.webView);
+        mWebView.getSettings().setJavaScriptEnabled(true);
+        mWebView.loadUrl("https://colibristudio16mb.wordpress.com/");
+        mWebView.setWebViewClient(new MyWebViewClient());
     }
 
 
