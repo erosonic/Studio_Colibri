@@ -27,7 +27,7 @@
         </activity>
         <activity android:name=".Calendar" >
         </activity>
-        <activity android:name=".Photo" >
+        <activity android:name=".PhotoActivity" >
         </activity>
     </application>
 

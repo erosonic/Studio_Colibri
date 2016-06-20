@@ -29,7 +29,7 @@ public class MainActivity extends TabActivity
 
         tabHost.setup();
         tabSpec = tabHost.newTabSpec("tag2");
-        tabSpec.setContent(new Intent(this, Photo.class) );
+        tabSpec.setContent(new Intent(this, PhotoActivity.class) );
         tabSpec.setIndicator("Фотогалерея");
         tabHost.addTab(tabSpec);
         tabHost.setup();

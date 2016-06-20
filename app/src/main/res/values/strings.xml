@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">Studio_Colibri</string>
     <string name="action_settings">Settings</string>
+    <string name="photos_downloading_error">Произошла ошибка при загрузке фото.</string>
+    <string name="grid_item_date_text">Дата: </string>
 </resources>

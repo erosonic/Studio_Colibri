@@ -15,7 +15,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class DownloadPhotoAsyncTask extends AsyncTask<Void, Void, ArrayList<String>> {
+public class DownloadPhotoAsyncTask extends AsyncTask<Void, Void, ArrayList<PhotoObject>> {
     HttpURLConnection urlConnection;
     BufferedReader reader = null;
     String resultJson = "";
@@ -28,9 +28,15 @@ public class DownloadPhotoAsyncTask extends AsyncTask<Void, Void, ArrayList<Stri
     }
 
     @Override
-    protected ArrayList<String> doInBackground(Void... params) {
+    protected void onPreExecute() {
+        super.onPreExecute();
+        downloadPhotoListener.photosAreLoading();
+    }
+
+    @Override
+    protected ArrayList<PhotoObject> doInBackground(Void... params) {
         URL url;
-        ArrayList<String> photosURLS = new ArrayList<>();
+        ArrayList<PhotoObject> photosObjectList = new ArrayList<>();
         try {
             url = new URL(requestURI);
             urlConnection = (HttpURLConnection) url.openConnection();
@@ -50,16 +56,19 @@ public class DownloadPhotoAsyncTask extends AsyncTask<Void, Void, ArrayList<Stri
             JSONObject jsonObject;
             JSONArray jsonArray;
             JSONObject imageJSON;
+            String createdDate;
             String Urlimg;
 
             try {
                 jsonObject = new JSONObject(resultJson);
                 jsonArray = jsonObject.getJSONArray("data");
                 for (int i = 0; i < jsonArray.length(); i++) {
+                    createdDate = jsonArray.getJSONObject(i).get("created_time").toString();
                     imageJSON = jsonArray.getJSONObject(i).getJSONObject("images").getJSONObject("standard_resolution");
                     Urlimg = imageJSON.getString("url");
                     Log.d("my", Urlimg);
-                    photosURLS.add(Urlimg);
+                    PhotoObject object = new PhotoObject(Urlimg, createdDate);
+                    photosObjectList.add(object);
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -67,12 +76,15 @@ public class DownloadPhotoAsyncTask extends AsyncTask<Void, Void, ArrayList<Stri
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return photosURLS;
+        return photosObjectList;
     }
 
     @Override
-    protected void onPostExecute(ArrayList<String> request) {
-        downloadPhotoListener.photosDownloaded(request);
+    protected void onPostExecute(ArrayList<PhotoObject> request) {
+        if (request != null && request.size() > 0)
+            downloadPhotoListener.photosDownloaded(request);
+        else
+            downloadPhotoListener.photosLoadingError();
     }
 
 }
