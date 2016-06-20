@@ -32,8 +32,8 @@ public class MainActivity extends TabActivity
         tabSpec.setContent(new Intent(this, PhotoActivity.class) );
         tabSpec.setIndicator("Фотогалерея");
         tabHost.addTab(tabSpec);
-        tabHost.setup();
 
+        tabHost.setup();
         tabSpec = tabHost.newTabSpec("tag3");
         tabSpec.setContent(new Intent(this, Calendar.class) );
         tabSpec.setIndicator("Календарь");

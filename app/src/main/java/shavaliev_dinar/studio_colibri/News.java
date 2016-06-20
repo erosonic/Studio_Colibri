@@ -1,17 +1,37 @@
 package shavaliev_dinar.studio_colibri;
 
+import android.net.http.SslError;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.webkit.SslErrorHandler;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 public class News extends AppCompatActivity
 {
 
-    private class MyWebViewClient extends WebViewClient
+    @Override
+    protected void onCreate(Bundle savedInstanceState)
     {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.news);
+        WebView webView = (WebView) findViewById(R.id.webView);
+        webView.getSettings().setJavaScriptEnabled(true);
+        webView.getSettings().setBuiltInZoomControls(true);
+        webView.loadUrl("https://colibristudio16mb.wordpress.com/");
+        webView.setWebViewClient(new WebViewClient());
+    }
+
+    private class SSLTolerentWebViewClient extends WebViewClient
+    {
+
+        @Override
+        public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error)
+        {
+            handler.proceed(); // Ignore SSL certificate errors
+        }
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url)
         {
@@ -19,19 +39,6 @@ public class News extends AppCompatActivity
             return true;
         }
     }
-    private WebView mWebView;
-    @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.news);
-
-        mWebView = (WebView) findViewById(R.id.webView);
-        mWebView.getSettings().setJavaScriptEnabled(true);
-        mWebView.loadUrl("https://colibristudio16mb.wordpress.com/");
-        mWebView.setWebViewClient(new MyWebViewClient());
-    }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
@@ -40,6 +47,7 @@ public class News extends AppCompatActivity
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
