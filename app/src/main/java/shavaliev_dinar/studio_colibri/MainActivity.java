@@ -35,7 +35,7 @@ public class MainActivity extends TabActivity
 
         tabHost.setup();
         tabSpec = tabHost.newTabSpec("tag3");
-        tabSpec.setContent(new Intent(this, Calendar.class) );
+        tabSpec.setContent(new Intent(this, CalendarActivity.class) );
         tabSpec.setIndicator("Календарь");
         tabHost.addTab(tabSpec);
 
