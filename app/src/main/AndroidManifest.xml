@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="shavaliev_dinar.studio_colibri">
+
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_CALENDAR"> </uses-permission>
-    <uses-permission android:name="android.permission.WRITE_CALENDAR"> </uses-permission>
+    <uses-permission android:name="android.permission.READ_CALENDAR"/>
+    <uses-permission android:name="android.permission.WRITE_CALENDAR"/>
 
     <application
         android:allowBackup="true"
@@ -21,14 +22,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".News" >
-        </activity>
-        <activity android:name=".Full" >
-        </activity>
-        <activity android:name=".CalendarActivity" >
-        </activity>
-        <activity android:name=".PhotoActivity" >
-        </activity>
+        <activity android:name=".News"/>
+        <activity
+            android:name=".Full"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".CalendarActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".PhotoActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>
